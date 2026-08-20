@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillBridge - Student Career Platform</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #173b7a;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #93c5fd;
+        }
+
+        .hero {
+            padding: 60px 7%;
+            background: linear-gradient(135deg, #e9f0ff 0%, #d8e5ff 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            color: #173b7a;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            margin: 10px auto 25px;
+            font-size: 18px;
+            max-width: 650px;
+            color: #475569;
+        }
+
+        .user-welcome-badge {
+            display: inline-block;
+            background: #173b7a;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        button {
+            background: #173b7a;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background: #0e2854;
+            transform: translateY(-1px);
+        }
+
+        button.btn-secondary {
+            background: #64748b;
+        }
+        button.btn-secondary:hover {
+            background: #475569;
+        }
+
+        button.btn-danger {
+            background: #ef4444;
+        }
+        button.btn-danger:hover {
+            background: #dc2626;
+        }
+
+        button.btn-success {
+            background: #10b981 !important;
+            cursor: default;
+        }
+
+        button.btn-warning {
+            background: #f59e0b !important;
+            cursor: default;
+        }
+
+        section {
+            padding: 40px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #173b7a;
+            font-size: 28px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            color: #173b7a;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .card p {
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .stat {
+            background: white;
+            padding: 22px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat h2 {
+            color: #173b7a;
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+
+        .stat p {
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .skill {
+            margin: 15px 0;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #334155;
+        }
+
+        .progress {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress div {
+            height: 100%;
+            background: linear-gradient(90deg, #173b7a, #3b82f6);
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 8px 0 16px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #173b7a;
+            box-shadow: 0 0 0 3px rgba(23, 59, 122, 0.1);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row > div {
+            flex: 1;
+        }
+
+        .status-msg {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .status-msg.success {
+            display: block;
+            background: #dcfce7;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        .status-msg.error {
+            display: block;
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        /* Activity / Summary Panel */
+        .activity-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+        }
+
+        .activity-panel h3 {
+            color: #173b7a;
+            margin-bottom: 15px;
+        }
+
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .activity-box {
+            background: #f8fafc;
+            border-left: 4px solid #173b7a;
+            padding: 12px 15px;
+            border-radius: 8px;
+        }
+
+        .activity-box h4 {
+            color: #334155;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .activity-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            background: #e2e8f0;
+            color: #1e293b;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .tag.empty {
+            background: transparent;
+            color: #94a3b8;
+            font-style: italic;
+            padding: 0;
+        }
+
+        /* Chatbox */
+        .chatbox {
+            max-width: 680px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+        }
+
+        .chat-history {
+            max-height: 300px;
+            min-height: 160px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-bubble {
+            padding: 10px 15px;
+            border-radius: 12px;
+            max-width: 85%;
+            font-size: 14px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .chat-bubble.user {
+            align-self: flex-end;
+            background: #173b7a;
+            color: white;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-bubble.bot {
+            align-self: flex-start;
+            background: #e9f0ff;
+            color: #1e293b;
+            border-bottom-left-radius: 2px;
+            border: 1px solid #c7d7f7;
+        }
+
+        .chat-quick-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .chat-quick-btn {
+            background: #e2e8f0;
+            color: #1e293b;
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .chat-quick-btn:hover {
+            background: #cbd5e1;
+            transform: none;
+        }
+
+        /* Toast notification */
+        #toast {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #1e293b;
+            color: white;
+            padding: 14px 22px;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            font-size: 14px;
+            font-weight: 500;
+            display: none;
+            z-index: 9999;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            background: #173b7a;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        @media(max-width:700px) {
+            nav {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="logo">🚀 SkillBridge</div>
+
+    <nav>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#profile">Profile</a>
+        <a href="#skills">Skills</a>
+        <a href="#assessment">Assessment</a>
+        <a href="#jobs">Jobs</a>
+        <a href="#mentors">Mentors</a>
+        <a href="#projects">Projects</a>
+        <a href="#assistant">AI Assistant</a>
+    </nav>
+</header>
+
+
+<!-- HERO SECTION -->
+<div class="hero">
+    <div id="welcomeBadge" class="user-welcome-badge" style="display: none;"></div>
+    <h1>Bridge Your Skills to Your Career</h1>
+
+    <p>
+        Learn skills, find opportunities, connect with mentors
+        and build your career with SkillBridge.
+    </p>
+
+    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <button onclick="scrollToSection('assessment')">
+            Start Skill Assessment
+        </button>
+        <button class="btn-secondary" onclick="scrollToSection('profile')">
+            Update Profile
+        </button>
+    </div>
+</div>
+
+
+<!-- DASHBOARD -->
+<section id="dashboard">
+    <h2 class="section-title">Student Dashboard</h2>
+
+    <div class="dashboard">
+        <div class="stat">
+            <h2 id="statReadiness">50%</h2>
+            <p>Career Readiness</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="statSkills">4</h2>
+            <p>Skills Tracked</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="statProjects">0</h2>
+            <p>Projects Enrolled</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="statApplied">0</h2>
+            <p>Jobs & Mentors Applied</p>
+        </div>
+    </div>
+
+    <!-- PURE JS ACTIVITY SUMMARY BACKEND -->
+    <div class="activity-panel">
+        <h3>📊 Your Activity & Storage Status (Core JS Backend)</h3>
+        <div class="activity-grid">
+            <div class="activity-box">
+                <h4>💼 Applied Jobs (<span id="countAppliedJobs">0</span>)</h4>
+                <div id="listAppliedJobs" class="activity-tags">
+                    <span class="tag empty">No applications yet</span>
+                </div>
+            </div>
+
+            <div class="activity-box">
+                <h4>🤝 Mentor Connections (<span id="countMentors">0</span>)</h4>
+                <div id="listMentors" class="activity-tags">
+                    <span class="tag empty">No mentors connected</span>
+                </div>
+            </div>
+
+            <div class="activity-box">
+                <h4>🧑‍💻 Active Projects (<span id="countProjects">0</span>)</h4>
+                <div id="listProjects" class="activity-tags">
+                    <span class="tag empty">No projects enrolled</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- STUDENT PROFILE -->
+<section id="profile">
+    <h2 class="section-title">Student Profile</h2>
+
+    <div class="card" style="max-width: 700px; margin: auto;">
+        <h3>👩‍💻 Student Information</h3>
+        <p>Your profile is automatically saved using pure JavaScript LocalStorage.</p>
+
+        <div class="form-row">
+            <div>
+                <label><strong>Full Name</strong></label>
+                <input type="text" id="studentName" placeholder="Enter your full name">
+            </div>
+            <div>
+                <label><strong>Email Address</strong></label>
+                <input type="email" id="studentEmail" placeholder="Enter your email address">
+            </div>
+        </div>
+
+        <label><strong>Target Career Goal</strong></label>
+        <select id="careerGoal">
+            <option value="Data Analyst">Data Analyst</option>
+            <option value="Software Developer">Software Developer</option>
+            <option value="Web Developer">Web Developer</option>
+            <option value="Data Scientist">Data Scientist</option>
+            <option value="Cyber Security Analyst">Cyber Security Analyst</option>
+        </select>
+
+        <div style="display: flex; gap: 12px; margin-top: 10px;">
+            <button onclick="saveProfile()">
+                💾 Save Profile
+            </button>
+            <button class="btn-danger" onclick="resetAllData()">
+                🗑️ Reset All Data
+            </button>
+        </div>
+
+        <div id="profileMessage" class="status-msg"></div>
+    </div>
+</section>
+
+
+<!-- SKILLS -->
+<section id="skills">
+    <h2 class="section-title">My Skills</h2>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Python</h3>
+            <div class="skill">
+                <div class="skill-header">
+                    <span>Proficiency</span>
+                    <span>80%</span>
+                </div>
+                <div class="progress">
+                    <div style="width:80%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>SQL</h3>
+            <div class="skill">
+                <div class="skill-header">
+                    <span>Proficiency</span>
+                    <span>70%</span>
+                </div>
+                <div class="progress">
+                    <div style="width:70%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>HTML / CSS / JS</h3>
+            <div class="skill">
+                <div class="skill-header">
+                    <span>Proficiency</span>
+                    <span>90%</span>
+                </div>
+                <div class="progress">
+                    <div style="width:90%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Machine Learning</h3>
+            <div class="skill">
+                <div class="skill-header">
+                    <span>Proficiency</span>
+                    <span>55%</span>
+                </div>
+                <div class="progress">
+                    <div style="width:55%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SKILL ASSESSMENT -->
+<section id="assessment">
+    <h2 class="section-title">🧠 Skill Assessment Quiz</h2>
+
+    <div class="card" style="max-width: 700px; margin: auto;">
+        <h3>Question 1 of 2: Python & Data</h3>
+        <p style="margin: 10px 0 15px; font-weight: 500;">What is Python mainly used for in technology?</p>
+
+        <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+            <input type="radio" name="q1" value="wrong" style="width: auto; margin-right: 8px;">
+            Designing physical building blueprints
+        </label>
+
+        <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+            <input type="radio" name="q1" value="correct" style="width: auto; margin-right: 8px;">
+            Programming, web development, data analysis, and AI
+        </label>
+
+        <label style="display: block; margin-bottom: 15px; cursor: pointer;">
+            <input type="radio" name="q1" value="wrong" style="width: auto; margin-right: 8px;">
+            Manufacturing hardware components only
+        </label>
+
+        <hr style="margin: 15px 0; border: none; border-top: 1px solid #e2e8f0;">
+
+        <h3>Question 2 of 2: Web Development</h3>
+        <p style="margin: 10px 0 15px; font-weight: 500;">Which language adds interactivity and backend logic to web applications?</p>
+
+        <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+            <input type="radio" name="q2" value="wrong" style="width: auto; margin-right: 8px;">
+            HTML only
+        </label>
+
+        <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+            <input type="radio" name="q2" value="correct" style="width: auto; margin-right: 8px;">
+            JavaScript (JS)
+        </label>
+
+        <label style="display: block; margin-bottom: 15px; cursor: pointer;">
+            <input type="radio" name="q2" value="wrong" style="width: auto; margin-right: 8px;">
+            CSS only
+        </label>
+
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <button onclick="submitAssessment()">
+                Submit Quiz
+            </button>
+        </div>
+
+        <div id="assessmentResult" class="status-msg"></div>
+    </div>
+</section>
+
+
+<!-- LEARNING ROADMAP -->
+<section>
+    <h2 class="section-title">📚 Personalized Learning Roadmap</h2>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Step 1</h3>
+            <p>Learn Core Programming Basics & Logic</p>
+            <button onclick="showToast('Step 1 guide: Focus on variables, loops, and functions!')">Start Learning</button>
+        </div>
+
+        <div class="card">
+            <h3>Step 2</h3>
+            <p>Learn Databases & Data Management</p>
+            <button onclick="showToast('Step 2 guide: Learn SQL queries and data storage!')">Start Learning</button>
+        </div>
+
+        <div class="card">
+            <h3>Step 3</h3>
+            <p>Master Data Visualization & Web UI</p>
+            <button onclick="showToast('Step 3 guide: Master interactive dashboards and charts!')">Start Learning</button>
+        </div>
+
+        <div class="card">
+            <h3>Step 4</h3>
+            <p>Build Real Full-Stack Projects</p>
+            <button onclick="scrollToSection('projects')">View Projects</button>
+        </div>
+    </div>
+</section>
+
+
+<!-- JOBS & INTERNSHIPS -->
+<section id="jobs">
+    <h2 class="section-title">💼 Internship & Job Opportunities</h2>
+
+    <div class="cards">
+        <div class="card" data-job="Data Analyst Intern">
+            <div>
+                <h3>Data Analyst Intern</h3>
+                <p><strong>Skills:</strong> Python, SQL, Excel</p>
+                <p><strong>Location:</strong> Pune (Hybrid)</p>
+                <p><strong>Stipend:</strong> ₹15,000 / month</p>
+            </div>
+            <button class="job-btn" onclick="applyJob('Data Analyst Intern', this)">
+                Apply Now
+            </button>
+        </div>
+
+        <div class="card" data-job="Web Developer Intern">
+            <div>
+                <h3>Web Developer Intern</h3>
+                <p><strong>Skills:</strong> HTML, CSS, JavaScript</p>
+                <p><strong>Location:</strong> Mumbai (On-site)</p>
+                <p><strong>Stipend:</strong> ₹18,000 / month</p>
+            </div>
+            <button class="job-btn" onclick="applyJob('Web Developer Intern', this)">
+                Apply Now
+            </button>
+        </div>
+
+        <div class="card" data-job="Machine Learning Intern">
+            <div>
+                <h3>Machine Learning Intern</h3>
+                <p><strong>Skills:</strong> Python, ML, Pandas</p>
+                <p><strong>Location:</strong> Remote</p>
+                <p><strong>Stipend:</strong> ₹20,000 / month</p>
+            </div>
+            <button class="job-btn" onclick="applyJob('Machine Learning Intern', this)">
+                Apply Now
+            </button>
+        </div>
+    </div>
+</section>
+
+
+<!-- MENTORS -->
+<section id="mentors">
+    <h2 class="section-title">🤝 Connect With Mentors</h2>
+
+    <div class="cards">
+        <div class="card" data-mentor="Rahul Sharma">
+            <div>
+                <h3>Rahul Sharma</h3>
+                <p><strong>Role:</strong> Software Engineer</p>
+                <p><strong>Experience:</strong> 5 Years</p>
+                <p><strong>Focus:</strong> Full Stack & Backend</p>
+            </div>
+            <button class="mentor-btn" onclick="connectMentor('Rahul Sharma', this)">
+                Connect
+            </button>
+        </div>
+
+        <div class="card" data-mentor="Priya Patil">
+            <div>
+                <h3>Priya Patil</h3>
+                <p><strong>Role:</strong> Data Scientist</p>
+                <p><strong>Experience:</strong> 4 Years</p>
+                <p><strong>Focus:</strong> AI & Python Analytics</p>
+            </div>
+            <button class="mentor-btn" onclick="connectMentor('Priya Patil', this)">
+                Connect
+            </button>
+        </div>
+
+        <div class="card" data-mentor="Amit Joshi">
+            <div>
+                <h3>Amit Joshi</h3>
+                <p><strong>Role:</strong> Senior Web Developer</p>
+                <p><strong>Experience:</strong> 6 Years</p>
+                <p><strong>Focus:</strong> Modern JavaScript & UI</p>
+            </div>
+            <button class="mentor-btn" onclick="connectMentor('Amit Joshi', this)">
+                Connect
+            </button>
+        </div>
+    </div>
+</section>
+
+
+<!-- PROJECTS MARKETPLACE -->
+<section id="projects">
+    <h2 class="section-title">🧑‍💻 Project Marketplace</h2>
+
+    <div class="cards">
+        <div class="card" data-project="AI Chatbot Project">
+            <div>
+                <h3>AI Chatbot</h3>
+                <p>Build an interactive AI chatbot for student enquiries and career support.</p>
+            </div>
+            <button class="project-btn" onclick="enrollProject('AI Chatbot Project', this)">
+                Enroll Project
+            </button>
+        </div>
+
+        <div class="card" data-project="Skill Recommendation System">
+            <div>
+                <h3>Skill Recommendation System</h3>
+                <p>Recommend skills according to career goals using smart filtering logic.</p>
+            </div>
+            <button class="project-btn" onclick="enrollProject('Skill Recommendation System', this)">
+                Enroll Project
+            </button>
+        </div>
+
+        <div class="card" data-project="Student Placement Portal">
+            <div>
+                <h3>Student Placement Portal</h3>
+                <p>Build a portal that connects students with hiring companies and mentors.</p>
+            </div>
+            <button class="project-btn" onclick="enrollProject('Student Placement Portal', this)">
+                Enroll Project
+            </button>
+        </div>
+    </div>
+</section>
+
+
+<!-- AI ASSISTANT -->
+<section id="assistant">
+    <h2 class="section-title">🤖 SkillBridge AI Career Assistant</h2>
+
+    <div class="chatbox">
+        <div class="chat-quick-buttons">
+            <span style="font-size: 12px; color: #64748b; margin-right: 5px; align-self: center;">Quick questions:</span>
+            <button class="chat-quick-btn" onclick="askQuick('Data Analyst roadmap')">Data Analyst</button>
+            <button class="chat-quick-btn" onclick="askQuick('Web Developer roadmap')">Web Developer</button>
+            <button class="chat-quick-btn" onclick="askQuick('How to learn Python?')">Python Guide</button>
+            <button class="chat-quick-btn" onclick="askQuick('How to get an internship?')">Internships</button>
+        </div>
+
+        <!-- Chat History Container -->
+        <div id="chatHistory" class="chat-history">
+            <div class="chat-bubble bot">
+                👋 Hello! I am your SkillBridge AI Assistant. Ask me anything about skills, roadmaps, jobs, or programming!
+            </div>
+        </div>
+
+        <textarea id="question" rows="2" placeholder="Type your career question here (Press Enter to send)..."></textarea>
+
+        <div style="display: flex; justify-content: space-between; gap: 10px;">
+            <button onclick="askAI()">
+                🚀 Send Question
+            </button>
+            <button class="btn-secondary" onclick="clearChat()">
+                Clear Chat
+            </button>
+        </div>
+    </div>
+</section>
+
+
+<!-- TOAST NOTIFICATION -->
+<div id="toast"></div>
+
+
+<!-- FOOTER -->
+<footer>
+    <h3>🚀 SkillBridge</h3>
+    <p>Connecting Students with Skills, Mentors & Opportunities</p>
+    <p>© 2026 SkillBridge • Built with Pure JavaScript Backend</p>
+</footer>
+
+
+<!-- ========================================== -->
+<!-- CORE JAVASCRIPT BACKEND LOGIC (NO EXTENSION) -->
+<!-- ========================================== -->
+<script>
+// ==========================================
+// 1. STORAGE KEYS (CORE JS DATABASE)
+// ==========================================
+const DB_KEYS = {
+    PROFILE: "skillbridge_profile",
+    ASSESSMENT: "skillbridge_assessment",
+    APPLIED_JOBS: "skillbridge_applied_jobs",
+    MENTORS: "skillbridge_mentors",
+    PROJECTS: "skillbridge_projects",
+    CHAT_HISTORY: "skillbridge_chat_history"
+};
+
+// ==========================================
+// 2. HELPER FUNCTIONS FOR STORAGE (BACKEND ENGINE)
+// ==========================================
+function dbGet(key, defaultValue) {
+    try {
+        const item = localStorage.getItem(key);
+        return item ? JSON.parse(item) : defaultValue;
+    } catch (e) {
+        console.error("Error reading from storage", e);
+        return defaultValue;
+    }
+}
+
+function dbSet(key, value) {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {
+        console.error("Error writing to storage", e);
+    }
+}
+
+// Toast notification helper
+function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.innerText = message;
+    toast.style.display = "block";
+    setTimeout(() => {
+        toast.style.display = "none";
+    }, 3000);
+}
+
+// Smooth scroll helper
+function scrollToSection(sectionId) {
+    const el = document.getElementById(sectionId);
+    if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+    }
+}
+
+// ==========================================
+// 3. APPLICATION INITIALIZER (ON LOAD)
+// ==========================================
+window.onload = function() {
+    loadProfile();
+    loadAssessment();
+    loadAppliedJobs();
+    loadMentors();
+    loadProjects();
+    loadChatHistory();
+    updateDashboardStats();
+
+    // Enable Enter key in chat textarea
+    const questionInput = document.getElementById("question");
+    if (questionInput) {
+        questionInput.addEventListener("keydown", function(e) {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                askAI();
+            }
+        });
+    }
+};
+
+// ==========================================
+// 4. PROFILE MANAGEMENT (CORE JS BACKEND)
+// ==========================================
+function saveProfile() {
+    const name = document.getElementById("studentName").value.trim();
+    const email = document.getElementById("studentEmail").value.trim();
+    const careerGoal = document.getElementById("careerGoal").value;
+    const msgEl = document.getElementById("profileMessage");
+
+    if (!name) {
+        msgEl.className = "status-msg error";
+        msgEl.innerText = "⚠️ Please enter your name.";
+        return;
+    }
+
+    const profileData = {
+        name: name,
+        email: email,
+        careerGoal: careerGoal,
+        updatedAt: new Date().toLocaleDateString()
+    };
+
+    // Save to LocalStorage Backend
+    dbSet(DB_KEYS.PROFILE, profileData);
+
+    msgEl.className = "status-msg success";
+    msgEl.innerHTML = `✅ Profile saved successfully! Welcome, <strong>${name}</strong> (Target Career: <em>${careerGoal}</em>).`;
+
+    showToast(`Profile saved for ${name}! 🎉`);
+    updateWelcomeBanner(profileData);
+    updateDashboardStats();
+}
+
+function loadProfile() {
+    const profile = dbGet(DB_KEYS.PROFILE, null);
+    if (profile) {
+        if (document.getElementById("studentName")) document.getElementById("studentName").value = profile.name || "";
+        if (document.getElementById("studentEmail")) document.getElementById("studentEmail").value = profile.email || "";
+        if (document.getElementById("careerGoal")) document.getElementById("careerGoal").value = profile.careerGoal || "Data Analyst";
+        updateWelcomeBanner(profile);
+    }
+}
+
+function updateWelcomeBanner(profile) {
+    const welcomeBadge = document.getElementById("welcomeBadge");
+    if (profile && profile.name) {
+        welcomeBadge.innerText = `👋 Welcome, ${profile.name} | Goal: ${profile.careerGoal}`;
+        welcomeBadge.style.display = "inline-block";
+    } else {
+        welcomeBadge.style.display = "none";
+    }
+}
+
+// ==========================================
+// 5. ASSESSMENT QUIZ (CORE JS BACKEND)
+// ==========================================
+function submitAssessment() {
+    const q1 = document.querySelector('input[name="q1"]:checked');
+    const q2 = document.querySelector('input[name="q2"]:checked');
+    const resultEl = document.getElementById("assessmentResult");
+
+    if (!q1 || !q2) {
+        resultEl.className = "status-msg error";
+        resultEl.innerText = "⚠️ Please answer all quiz questions before submitting.";
+        return;
+    }
+
+    let score = 0;
+    if (q1.value === "correct") score++;
+    if (q2.value === "correct") score++;
+
+    const totalQuestions = 2;
+    const percentage = Math.round((score / totalQuestions) * 100);
+
+    const assessmentData = {
+        score: score,
+        total: totalQuestions,
+        percentage: percentage,
+        completed: true,
+        completedAt: new Date().toLocaleDateString()
+    };
+
+    // Save to LocalStorage Backend
+    dbSet(DB_KEYS.ASSESSMENT, assessmentData);
+
+    if (score === 2) {
+        resultEl.className = "status-msg success";
+        resultEl.innerHTML = `🎉 Perfect Score! ${score}/${totalQuestions} (100%). Your Career Readiness has increased!`;
+    } else {
+        resultEl.className = "status-msg success";
+        resultEl.innerHTML = `✅ Quiz Completed: ${score}/${totalQuestions} correct (${percentage}%). Review the roadmap to strengthen your knowledge!`;
+    }
+
+    showToast(`Assessment submitted: ${percentage}% score!`);
+    updateDashboardStats();
+}
+
+function loadAssessment() {
+    const assessment = dbGet(DB_KEYS.ASSESSMENT, null);
+    if (assessment && assessment.completed) {
+        const resultEl = document.getElementById("assessmentResult");
+        resultEl.className = "status-msg success";
+        resultEl.innerHTML = `📌 Previous Quiz Score: ${assessment.score}/${assessment.total} (${assessment.percentage}%). Completed on ${assessment.completedAt}.`;
+    }
+}
+
+// ==========================================
+// 6. JOB APPLICATIONS (CORE JS BACKEND)
+// ==========================================
+function applyJob(jobTitle, btnElement) {
+    const profile = dbGet(DB_KEYS.PROFILE, null);
+    if (!profile || !profile.name) {
+        showToast("⚠️ Please fill out and save your Student Profile first!");
+        scrollToSection("profile");
+        return;
+    }
+
+    let appliedJobs = dbGet(DB_KEYS.APPLIED_JOBS, []);
+    
+    if (appliedJobs.includes(jobTitle)) {
+        showToast(`You have already applied for ${jobTitle}`);
+        return;
+    }
+
+    appliedJobs.push(jobTitle);
+    dbSet(DB_KEYS.APPLIED_JOBS, appliedJobs);
+
+    // Update button UI
+    if (btnElement) {
+        btnElement.innerText = "✅ Applied";
+        btnElement.className = "job-btn btn-success";
+    }
+
+    showToast(`Application submitted for ${jobTitle}! 🚀`);
+    renderAppliedJobsList(appliedJobs);
+    updateDashboardStats();
+}
+
+function loadAppliedJobs() {
+    const appliedJobs = dbGet(DB_KEYS.APPLIED_JOBS, []);
+    
+    // Update all matching job buttons on page
+    document.querySelectorAll(".card[data-job]").forEach(card => {
+        const jobName = card.getAttribute("data-job");
+        const btn = card.querySelector(".job-btn");
+        if (btn && appliedJobs.includes(jobName)) {
+            btn.innerText = "✅ Applied";
+            btn.className = "job-btn btn-success";
+        }
+    });
+
+    renderAppliedJobsList(appliedJobs);
+}
+
+function renderAppliedJobsList(appliedJobs) {
+    const container = document.getElementById("listAppliedJobs");
+    const countEl = document.getElementById("countAppliedJobs");
+    if (!container || !countEl) return;
+
+    countEl.innerText = appliedJobs.length;
+
+    if (appliedJobs.length === 0) {
+        container.innerHTML = `<span class="tag empty">No applications yet</span>`;
+    } else {
+        container.innerHTML = appliedJobs.map(job => `<span class="tag">💼 ${job}</span>`).join("");
+    }
+}
+
+// ==========================================
+// 7. MENTOR CONNECTIONS (CORE JS BACKEND)
+// ==========================================
+function connectMentor(mentorName, btnElement) {
+    const profile = dbGet(DB_KEYS.PROFILE, null);
+    if (!profile || !profile.name) {
+        showToast("⚠️ Please fill out and save your Student Profile first!");
+        scrollToSection("profile");
+        return;
+    }
+
+    let connectedMentors = dbGet(DB_KEYS.MENTORS, []);
+    
+    if (connectedMentors.includes(mentorName)) {
+        showToast(`Request already sent to ${mentorName}`);
+        return;
+    }
+
+    connectedMentors.push(mentorName);
+    dbSet(DB_KEYS.MENTORS, connectedMentors);
+
+    if (btnElement) {
+        btnElement.innerText = "⏳ Request Sent";
+        btnElement.className = "mentor-btn btn-warning";
+    }
+
+    showToast(`Connection request sent to ${mentorName}! 🤝`);
+    renderMentorsList(connectedMentors);
+    updateDashboardStats();
+}
+
+function loadMentors() {
+    const mentors = dbGet(DB_KEYS.MENTORS, []);
+
+    document.querySelectorAll(".card[data-mentor]").forEach(card => {
+        const mentorName = card.getAttribute("data-mentor");
+        const btn = card.querySelector(".mentor-btn");
+        if (btn && mentors.includes(mentorName)) {
+            btn.innerText = "⏳ Request Sent";
+            btn.className = "mentor-btn btn-warning";
+        }
+    });
+
+    renderMentorsList(mentors);
+}
+
+function renderMentorsList(mentors) {
+    const container = document.getElementById("listMentors");
+    const countEl = document.getElementById("countMentors");
+    if (!container || !countEl) return;
+
+    countEl.innerText = mentors.length;
+
+    if (mentors.length === 0) {
+        container.innerHTML = `<span class="tag empty">No mentors connected</span>`;
+    } else {
+        container.innerHTML = mentors.map(m => `<span class="tag">🤝 ${m}</span>`).join("");
+    }
+}
+
+// ==========================================
+// 8. PROJECT ENROLLMENT (CORE JS BACKEND)
+// ==========================================
+function enrollProject(projectName, btnElement) {
+    let projects = dbGet(DB_KEYS.PROJECTS, []);
+
+    if (projects.includes(projectName)) {
+        showToast(`You are already enrolled in ${projectName}`);
+        return;
+    }
+
+    projects.push(projectName);
+    dbSet(DB_KEYS.PROJECTS, projects);
+
+    if (btnElement) {
+        btnElement.innerText = "🚀 Enrolled (In Progress)";
+        btnElement.className = "project-btn btn-success";
+    }
+
+    showToast(`Enrolled in ${projectName}! 🧑‍💻`);
+    renderProjectsList(projects);
+    updateDashboardStats();
+}
+
+function loadProjects() {
+    const projects = dbGet(DB_KEYS.PROJECTS, []);
+
+    document.querySelectorAll(".card[data-project]").forEach(card => {
+        const projName = card.getAttribute("data-project");
+        const btn = card.querySelector(".project-btn");
+        if (btn && projects.includes(projName)) {
+            btn.innerText = "🚀 Enrolled (In Progress)";
+            btn.className = "project-btn btn-success";
+        }
+    });
+
+    renderProjectsList(projects);
+}
+
+function renderProjectsList(projects) {
+    const container = document.getElementById("listProjects");
+    const countEl = document.getElementById("countProjects");
+    if (!container || !countEl) return;
+
+    countEl.innerText = projects.length;
+
+    if (projects.length === 0) {
+        container.innerHTML = `<span class="tag empty">No projects enrolled</span>`;
+    } else {
+        container.innerHTML = projects.map(p => `<span class="tag">🧑‍💻 ${p}</span>`).join("");
+    }
+}
+
+// ==========================================
+// 9. DYNAMIC DASHBOARD CALCULATION
+// ==========================================
+function updateDashboardStats() {
+    const profile = dbGet(DB_KEYS.PROFILE, null);
+    const assessment = dbGet(DB_KEYS.ASSESSMENT, null);
+    const appliedJobs = dbGet(DB_KEYS.APPLIED_JOBS, []);
+    const mentors = dbGet(DB_KEYS.MENTORS, []);
+    const projects = dbGet(DB_KEYS.PROJECTS, []);
+
+    // Calculate dynamic readiness percentage
+    let readiness = 40; // Base score
+    if (profile && profile.name) readiness += 15; // Profile completed
+    if (assessment && assessment.completed) readiness += (assessment.percentage / 100) * 20; // Quiz score
+    if (appliedJobs.length > 0) readiness += Math.min(appliedJobs.length * 5, 10);
+    if (mentors.length > 0) readiness += Math.min(mentors.length * 5, 5);
+    if (projects.length > 0) readiness += Math.min(projects.length * 5, 10);
+
+    // Cap readiness at 100%
+    readiness = Math.min(Math.round(readiness), 100);
+
+    // Update DOM
+    if (document.getElementById("statReadiness")) {
+        document.getElementById("statReadiness").innerText = `${readiness}%`;
+    }
+    if (document.getElementById("statProjects")) {
+        document.getElementById("statProjects").innerText = projects.length;
+    }
+    if (document.getElementById("statApplied")) {
+        document.getElementById("statApplied").innerText = appliedJobs.length + mentors.length;
+    }
+}
+
+// ==========================================
+// 10. SMART AI ASSISTANT WITH CHAT HISTORY
+// ==========================================
+function askQuick(promptText) {
+    document.getElementById("question").value = promptText;
+    askAI();
+}
+
+function askAI() {
+    const input = document.getElementById("question");
+    const query = input.value.trim();
+
+    if (!query) {
+        showToast("⚠️ Please type a question.");
+        return;
+    }
+
+    // Add user message to UI & Storage
+    addChatMessage("user", query);
+    input.value = "";
+
+    // Generate intelligent AI response based on query
+    const lower = query.toLowerCase();
+    let botReply = "";
+
+    if (lower.includes("data analyst")) {
+        botReply = "📊 For a Data Analyst career, master: Excel (Advanced formulas, Pivot Tables), SQL (Joins, Aggregations), Python (Pandas, NumPy, Matplotlib), and Power BI / Tableau.";
+    } else if (lower.includes("web developer") || lower.includes("web development")) {
+        botReply = "🌐 For Web Development: Start with HTML5 & CSS3 for structure and design, JavaScript for interactivity, and then explore React.js and Node.js for backend APIs!";
+    } else if (lower.includes("python")) {
+        botReply = "🐍 Python Roadmap: 1) Syntax & Variables 2) Lists & Dictionaries 3) Functions & Loops 4) Object-Oriented Programming (OOP) 5) Libraries: Pandas, Requests, Flask.";
+    } else if (lower.includes("internship") || lower.includes("job")) {
+        botReply = "💼 To get an internship: 1) Build 2-3 real projects 2) Host them on GitHub 3) Create a clean 1-page resume 4) Apply directly in the Jobs section above!";
+    } else if (lower.includes("mentor") || lower.includes("connect")) {
+        botReply = "🤝 Mentors provide career guidance, code reviews, and industry insights. Check the Mentors section above and click 'Connect'!";
+    } else if (lower.includes("hello") || lower.includes("hi") || lower.includes("hey")) {
+        botReply = "👋 Hello there! How can I assist you with your learning, skills, or career goals today?";
+    } else {
+        botReply = `🤖 Great question about "${query}"! I recommend setting your target career goal in the Profile section, completing the Skill Assessment quiz, and exploring the personalized learning roadmap.`;
+    }
+
+    setTimeout(() => {
+        addChatMessage("bot", botReply);
+    }, 400);
+}
+
+function addChatMessage(sender, text) {
+    const historyContainer = document.getElementById("chatHistory");
+    if (!historyContainer) return;
+
+    // Create chat bubble
+    const bubble = document.createElement("div");
+    bubble.className = `chat-bubble ${sender}`;
+    bubble.innerText = (sender === "bot" ? "🤖 " : "👤 ") + text;
+    historyContainer.appendChild(bubble);
+
+    // Scroll to bottom
+    historyContainer.scrollTop = historyContainer.scrollHeight;
+
+    // Save to storage
+    let chatHistory = dbGet(DB_KEYS.CHAT_HISTORY, []);
+    chatHistory.push({ sender, text });
+    dbSet(DB_KEYS.CHAT_HISTORY, chatHistory);
+}
+
+function loadChatHistory() {
+    const chatHistory = dbGet(DB_KEYS.CHAT_HISTORY, []);
+    const historyContainer = document.getElementById("chatHistory");
+    if (!historyContainer || chatHistory.length === 0) return;
+
+    // Clear default template if there is saved history
+    historyContainer.innerHTML = "";
+
+    chatHistory.forEach(item => {
+        const bubble = document.createElement("div");
+        bubble.className = `chat-bubble ${item.sender}`;
+        bubble.innerText = (item.sender === "bot" ? "🤖 " : "👤 ") + item.text;
+        historyContainer.appendChild(bubble);
+    });
+
+    historyContainer.scrollTop = historyContainer.scrollHeight;
+}
+
+function clearChat() {
+    dbSet(DB_KEYS.CHAT_HISTORY, []);
+    const historyContainer = document.getElementById("chatHistory");
+    if (historyContainer) {
+        historyContainer.innerHTML = `
+            <div class="chat-bubble bot">
+                👋 Chat cleared! Ask me anything about skills, roadmaps, jobs, or programming.
+            </div>
+        `;
+    }
+    showToast("Chat history cleared.");
+}
+
+// ==========================================
+// 11. RESET ALL DATA (FOR EASY TESTING)
+// ==========================================
+function resetAllData() {
+    if (confirm("Are you sure you want to reset all stored data (Profile, Quiz, Jobs, Mentors, Projects)?")) {
+        localStorage.clear();
+        showToast("All data reset successfully!");
+        setTimeout(() => {
+            window.location.reload();
+        }, 800);
+    }
+}
+</script>
+
+</body>
+</html>
